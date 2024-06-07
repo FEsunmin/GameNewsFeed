@@ -78,7 +78,11 @@ const StrategyComment = () => {
         }
       });
       if (isRightUser === true) {
-        const yes = confirm('정말 댓글을 삭제하시겠습니까?');
+        const yes = Swal.fire({
+          title: 'confirm',
+          text: `정말 댓글을 삭제하시겠습니까?`,
+          icon: 'confirm'
+        });
         if (yes) {
           dispatch(deleteStrategyComment({ id }));
           Swal.fire({
