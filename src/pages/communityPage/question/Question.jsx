@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
 import CommunityLayout from '../../../shared/CommunityLayout';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Question = () => {
   const { user } = useContext(UserContext);
