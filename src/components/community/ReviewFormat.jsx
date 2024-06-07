@@ -18,6 +18,7 @@ import useHandler from '../../hooks/useHandler';
 import { useRef } from 'react';
 import Loading from '../../shared/Loading';
 import { fetchReviewComment } from '../../redux/slices/reviewCommentSlice';
+import commentLogo from '../../images/comment.png';
 
 const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
               </div>
               <StCommentBox>
                 <p>{commentData.length}</p>
-                <StComment1 src="../../../../src/images/comment.png" alt="" />
+                <StComment1 src={commentLogo} alt="" />
               </StCommentBox>
             </StLine>
           </StBox>
