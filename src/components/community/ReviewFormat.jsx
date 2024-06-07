@@ -79,7 +79,7 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
               </div>
               <StCommentBox>
                 <p>{commentData.length}</p>
-                <StComment1 src="../../../../src/images/comment.png" alt="" />
+                <StComment1 src="/Users/sunmindev/GameNewsFeed/src/images/comment.png" alt="" />
               </StCommentBox>
             </StLine>
           </StBox>
