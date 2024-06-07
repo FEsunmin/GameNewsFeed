@@ -19,6 +19,7 @@ import useHandler from '../../hooks/useHandler';
 import Loading from '../../shared/Loading';
 import { fetchStrategyComment } from './../../redux/slices/strategyCommentSlice';
 import { fetchQuestionComment } from './../../redux/slices/questionCommentSlice';
+import commentLogo from '../../images/comment.png';
 
 const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
               <p>{info.created_at.split('T')[0]}</p>
               <StComment>
                 <p>{commentData.length}</p>
-                <StComment1 src="../../../../src/images/comment.png" alt="" />
+                <StComment1 src={commentLogo} alt="" />
               </StComment>
             </StBoxBottom>
           </StBox2>
