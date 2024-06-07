@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
 import CommunityLayout from '../../../shared/CommunityLayout';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Review = () => {
   const { user } = useContext(UserContext);
@@ -23,18 +24,46 @@ const Review = () => {
       const content = data.get('content');
       const username = user.user_metadata.username;
 
-      if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
-      else if (!starscore) return alert('별점을 입력해주세요.');
-      else if (starscore < 1 || starscore > 5) return alert('별점은 1점 이상 5점 이하의 숫자여야 합니다.');
-      else if (!content.trim()) return alert('내용을 입력해주세요.');
+      if (!gamename.trim())
+        return Swal.fire({
+          title: 'Failed',
+          text: `게임 이름을 입력해주세요.`,
+          icon: 'Failed'
+        });
+      else if (!starscore)
+        return Swal.fire({
+          title: 'Failed',
+          text: `별점을 입력해주세요.`,
+          icon: 'Failed'
+        });
+      else if (starscore < 1 || starscore > 5)
+        return Swal.fire({
+          title: 'Failed',
+          text: `별점은 1점 이상 5점 이하의 숫자여야 합니다.`,
+          icon: 'Failed'
+        });
+      else if (!content.trim())
+        return Swal.fire({
+          title: 'Failed',
+          text: `내용을 입력해주세요.`,
+          icon: 'Failed'
+        });
       else {
         const newReviewInfo = { gamename, starscore, content, username };
         dispatch(addReviewInfo(newReviewInfo));
-        alert('리뷰가 등록되었습니다.');
+        Swal.fire({
+          title: 'Good Job!',
+          text: `리뷰가 등록되었습니다!`,
+          icon: 'success'
+        });
       }
     } else {
       e.preventDefault();
-      alert('로그인 후 이용해주세요!');
+      Swal.fire({
+        title: 'Failed',
+        text: `로그인 후 이용해주세요.`,
+        icon: 'Failed'
+      });
       navigate('/login');
       return;
     }

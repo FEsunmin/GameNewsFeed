@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import githubLogo from '../../images/github.png';
 import supabase from '../../shared/supabaseClient';
+import Swal from 'sweetalert2';
 
 const SignUpInputGroup = styled.div`
   display: flex;
@@ -47,7 +48,11 @@ const SignUp = () => {
   //이메일 회원가입
   const signUpNewUser = async () => {
     if (!email || !password || !pwCheck || !username) {
-      alert('내용을 모두 기입해주세요!');
+      Swal.fire({
+        title: 'Failed',
+        text: `내용을 모두 기입해주세요.`,
+        icon: 'Failed'
+      });
       return;
     }
     const { data, error } = await supabase.auth.signUp({
@@ -66,7 +71,11 @@ const SignUp = () => {
       const { data: insertData, error: insertError } = await supabase
         .from('Users')
         .insert([{ user_id, user_email: email, user_name: username }]);
-      await alert(`${username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`);
+      await Swal.fire({
+        title: 'Good Job!',
+        text: `${username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`,
+        icon: 'success'
+      });
     }
 
     if (error) {
@@ -98,7 +107,11 @@ const SignUp = () => {
       }
     });
     if (data) {
-      return await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
+      return await Swal.fire({
+        title: 'Good Job!',
+        text: `${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`,
+        icon: 'success'
+      });
     }
     if (error) {
       return await (<h1>Error!</h1>);

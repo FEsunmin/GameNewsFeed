@@ -20,6 +20,7 @@ import {
 import { UserContext } from '../../api/UserProvider';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 const QuestionComment = () => {
   const data = useFetch('questionComment', fetchQuestionComment);
@@ -31,7 +32,11 @@ const QuestionComment = () => {
   const onUpdateHandler = (e, id) => {
     e.stopPropagation();
     if (!user) {
-      alert('로그인 후 이용해주세요!');
+      Swal.fire({
+        title: 'Failed',
+        text: `로그인 후 이용해주세요!`,
+        icon: 'Failed'
+      });
       navigate('/login');
       return;
     } else {
@@ -40,15 +45,29 @@ const QuestionComment = () => {
         if (user.user_metadata.username === ref.name && ref.id == id) content = ref.value;
       });
       dispatch(updateQuestionComment({ id, content }));
-      if (content) alert('수정이 완료되었습니다.');
-      else alert('본인이 쓴 글만 수정할 수 있습니다.');
+      if (content)
+        Swal.fire({
+          title: 'Good Job!',
+          text: `수정이 완료되었습니다!`,
+          icon: 'success'
+        });
+      else
+        Swal.fire({
+          title: 'Failed',
+          text: `본인이 쓴 글만 수정할 수 있습니다.`,
+          icon: 'Failed'
+        });
     }
   };
 
   const onDeleteHandler = (e, id) => {
     e.stopPropagation();
     if (!user) {
-      alert('로그인 후 이용해주세요!');
+      Swal.fire({
+        title: 'Failed',
+        text: `로그인 후 이용해주세요.`,
+        icon: 'Failed'
+      });
       navigate('/login');
       return;
     } else {
@@ -62,9 +81,18 @@ const QuestionComment = () => {
         const yes = confirm('정말 댓글을 삭제하시겠습니까?');
         if (yes) {
           dispatch(deleteQuestionComment({ id }));
-          alert('삭제가 완료되었습니다.');
+          Swal.fire({
+            title: 'Good Job!',
+            text: `삭제가 완료되었습니다!`,
+            icon: 'success'
+          });
         }
-      } else alert('본인이 쓴 글만 삭제할 수 있습니다.');
+      } else
+        Swal.fire({
+          title: 'Failed',
+          text: `본인이 쓴 글만 삭제할 수 있습니다.`,
+          icon: 'Failed'
+        });
     }
   };
 

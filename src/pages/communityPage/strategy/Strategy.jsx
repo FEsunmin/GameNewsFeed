@@ -23,17 +23,40 @@ const Strategy = () => {
       const content = data.get('content');
       const username = user.user_metadata.username;
 
-      if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
-      else if (!title.trim()) return alert('제목을 입력해주세요.');
-      else if (!content.trim()) return alert('내용을 입력해주세요.');
+      if (!gamename.trim())
+        return Swal.fire({
+          title: 'Failed',
+          text: `게임 이름을 입력해주세요.`,
+          icon: 'Failed'
+        });
+      else if (!title.trim())
+        return Swal.fire({
+          title: 'Failed',
+          text: `제목을 입력해주세요.`,
+          icon: 'Failed'
+        });
+      else if (!content.trim())
+        return Swal.fire({
+          title: 'Failed',
+          text: `별점을 입력해주세요.`,
+          icon: 'Failed'
+        });
       else {
         const newStrategyInfo = { gamename, title, username, content };
         dispatch(addStrategyInfo(newStrategyInfo));
-        alert('게임 공략법이 등록되었습니다.');
+        Swal.fire({
+          title: 'Good Job!',
+          text: `게임 공략법이 등록되었습니다!`,
+          icon: 'success'
+        });
       }
     } else {
       e.preventDefault();
-      alert('로그인 후 이용해주세요!');
+      Swal.fire({
+        title: 'Failed',
+        text: `로그인 후 이용해주세요.`,
+        icon: 'Failed'
+      });
       navigate('/login');
     }
 

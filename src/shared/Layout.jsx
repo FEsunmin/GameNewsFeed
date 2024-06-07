@@ -6,6 +6,7 @@ import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutSty
 import { useDispatch } from 'react-redux';
 import { setSearchInput, setSearchResults } from '../redux/slices/searchSlice';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
@@ -14,7 +15,11 @@ const Layout = ({ children }) => {
   const { searchInput } = useSelector((state) => state.search);
 
   const onClicktoLogin = () => {
-    alert('로그인 후 이용해주세요!');
+    Swal.fire({
+      title: 'Failed',
+      text: `로그인 후 이용해주세요`,
+      icon: 'Failed'
+    });
     navigate('/login');
   };
 
